@@ -1,7 +1,7 @@
 package org.silab.mofp.init;
 
+import org.silab.mofp.businesslogic.sender.MessageSender;
 import org.silab.mofp.config.SenderConfig;
-import org.silab.mofp.sender.MessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,5 +1,5 @@
 package org.silab.mofp.controller;
-import org.silab.mofp.sender.MessageSender;
+import org.silab.mofp.businesslogic.sender.MessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +15,6 @@ public class TestController {
 	
 	@RequestMapping(value="send", method=RequestMethod.GET)
 	public void sendMessage(){
-		sender.send("Test message", "test.queque");
+		//sender.send("Test message", "test.queque");
 	}
 }

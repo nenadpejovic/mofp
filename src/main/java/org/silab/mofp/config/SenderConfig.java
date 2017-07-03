@@ -1,7 +1,7 @@
 package org.silab.mofp.config;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.silab.mofp.sender.MessageSender;
+import org.silab.mofp.businesslogic.sender.MessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

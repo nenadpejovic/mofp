@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>MOFP</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link href="../static/style.css" rel="stylesheet"
+	th:href="@{/style.css}" type="text/css" />
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src="/script.js">
+	</script>
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="starter-template">
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-10">
+					<h1 id="msg">Start processing</h1>
+				</div>
+			</div>
+			<div class="row">
+				<form class="form-horizontal toggle">
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<div class="checkbox">
+								<label class="switch"> <input type="checkbox"
+									onClick="processing();" />
+									<div class="slider round"></div>
+								</label>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
