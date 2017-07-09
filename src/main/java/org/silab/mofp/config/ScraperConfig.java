@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +21,8 @@ public class ScraperConfig {
 	public WebDriver getDriver(){
 		File file = new File(config.getChromeDriver());
 	    System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
-		WebDriver chromeDriver = new ChromeDriver();
-		return chromeDriver;
+		WebDriver firefoxDriver = new ChromeDriver();
+		return firefoxDriver;
 	}
 	
 	@Bean

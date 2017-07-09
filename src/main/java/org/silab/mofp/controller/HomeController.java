@@ -26,13 +26,15 @@ public class HomeController {
 	@RequestMapping("/processing")
 	@ResponseBody
 	public String setProcessing(){
-		if(indicator.equals("start")){
-			indicator = "stop";
-			//sender.synchronize();
-		} else {
+		if(indicator.equals("stop")){
 			indicator = "start";
-			//sender.stop();
+			sender.synchronize();
+		} else {
+			indicator = "stop";
+			sender.stop();
 		}
+		
 		return indicator;
+		
 	}
 }

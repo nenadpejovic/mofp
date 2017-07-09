@@ -2,7 +2,6 @@ package org.silab.mofp.businesslogic.sender;
 
 import java.util.List;
 
-import org.eclipse.jetty.util.PathWatcher.Config;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -36,39 +35,53 @@ public class DataParser {
 		
 		for(int i = 1; i<13;i++){
 			String idSuffix = i < 10? "0"+i+"_row":i+"_row";
+			String startingLineupIdSuffix = i < 10? "0"+i+"_lnkPlayerName":i+"_lnkPlayerName";
 			String text = webDriver.findElement(By.id(playerRowId+idSuffix)).getText();
-			String[] data = text.split(" ");
+			String[] data = parseStringData(text);
 			
 			JsonObject player = new JsonObject();
 			
-			if (away && isInStartingLineup()) {
-
-				player.addProperty("name", data[2]);
-				player.addProperty("surname", data[1].substring(0, data[1].length() - 1));
-				player.addProperty("playedTime", calculatePlayedTime(data[3]));
-				player.addProperty("points", data[4]);
-				player.addProperty("two points percentage", calculatePercentage(data[5]));
-				player.addProperty("three points percentage", calculatePercentage(data[6]));
-				player.addProperty("one points percentage", calculatePercentage(data[7]));
-				player.addProperty("rebounds", data[11]);
-				player.addProperty("assists", data[12]);
-				player.addProperty("steals", data[13]);
-				player.addProperty("turnovers", data[14]);
-				player.addProperty("blocks", data[16]);
-				player.addProperty("personal fouls", data[17]);
-				player.addProperty("form index", data[18]);
+			
+			player.addProperty("name", data[2]);
+			player.addProperty("surname", data[1].substring(0, data[1].length() - 1));
+			player.addProperty("playedTime", calculatePlayedTime(data[3]));
+			player.addProperty("points", data[4]);
+			player.addProperty("two points percentage", calculatePercentage(data[5]));
+			player.addProperty("three points percentage", calculatePercentage(data[6]));
+			player.addProperty("one points percentage", calculatePercentage(data[7]));
+			player.addProperty("rebounds", data[10]);
+			player.addProperty("assists", data[11]);
+			player.addProperty("steals", data[12]);
+			player.addProperty("turnovers", data[13]);
+			player.addProperty("blocks", data[14]);
+			player.addProperty("personal fouls", data[16]);
+			player.addProperty("form index", data[18]);
+			
+			if(isInStartingLineup(playerRowId+startingLineupIdSuffix)){
+				player.addProperty("startingLineup", true);
+			} else {
+				player.addProperty("startingLineup", false);
 			}
+			
 		    homePlayers.add(player);
 		}
 		
 		return homePlayers;
 	}
 	
-
+	private String[] parseStringData(String text){
+		char[] data = text.toCharArray();
+		for(int i = 0; i < data.length; i++){
+			if(data[i] == ' ' && data[i+1] == ' '){
+				data[i+1] = '/';
+			}
+		}
+		return String.valueOf(data).split(" ");
+	}
 	
-	private boolean isInStartingLineup() {
+	private boolean isInStartingLineup(String id) {
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
-	    WebElement element = webDriver.findElement(By.cssSelector(".PlayerStatsFive"));
+	    WebElement element = webDriver.findElement(By.id(id));
 	    String fontWeight = (String) js.
 	            executeScript(
 	                    "return getComputedStyle(arguments[0]).getPropertyValue('font-Weight');",
@@ -80,21 +93,28 @@ public class DataParser {
 	    }
 	}
 
-	private double calculatePercentage(String string) {
-		
+	private String calculatePercentage(String string) {
+		try{
 		    String[] data = string.split("/");
-		    int scored = Integer.parseInt(data[0]);
-		    int tried = Integer.parseInt(data[1]);
+		    double scored = Double.parseDouble(data[0]);
+		    double tried = Double.parseDouble(data[1]);
 		    double percentage = scored / tried ;
-		    return percentage;
+		    return percentage+"";
+		} catch(Exception e){
+			return "";
+		}
 	}
 
-	private double calculatePlayedTime(String rawData) {
+	private String calculatePlayedTime(String rawData) {
 
+		try {
 			String[] data = rawData.split(":");
 			double min = Integer.parseInt(data[0]);
 			String sek = "0." + data[1];
-			return min + (Double.parseDouble(sek));
+			return min + (Double.parseDouble(sek))+"";
+		} catch(Exception e) {
+			return "";
+		}
 
 	}
 	

@@ -39,7 +39,7 @@ public class MessageSender {
 		while(indicator){
 			
 			dataLoader.setMessage();
-			send(message.getAsString(), config.getQueue());
+			send(message.toString(), config.getQueue());
 			
 			try {
 				Thread.sleep(1000);
