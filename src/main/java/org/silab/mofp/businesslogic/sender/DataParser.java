@@ -132,7 +132,6 @@ public class DataParser {
 		game.addProperty("away score", away);
 		game.addProperty("minute", 38.4);
 		game.addProperty("ball", true);
-		game.addProperty("quality of away team", "excellent");
 		game.addProperty("bonus", 0);
 		
 		return game;

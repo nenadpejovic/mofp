@@ -18,3 +18,17 @@ function changeText(){
 	       
 	 });
 }
+
+function sendMessage(){
+	var text = $('textarea#message').val();
+	
+	jQuery.ajax ({
+	    url: "/send",
+	    type: "POST",
+	    data: JSON.stringify({message: text}),
+	    contentType: "application/json; charset=utf-8",
+	    success: function(){
+	    	$('textarea#message').val('');
+	    }
+	});
+}

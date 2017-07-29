@@ -29,7 +29,7 @@ public class MessageSender {
 	private boolean indicator=true;
 
 	
-	private void send(String message, String destination){
+	public void send(String message, String destination){
 		LOGGER.info("sending message='{}' to destination='{}'", message, destination);
 		jmsTemplate.convertAndSend(destination,message);
 	}
@@ -42,7 +42,7 @@ public class MessageSender {
 			send(message.toString(), config.getQueue());
 			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
